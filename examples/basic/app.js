@@ -37,6 +37,7 @@ const Bar = { template: '<div>bar</div>' }
 const Unicode = { template: '<div>unicode</div>' }
 const Query = { template: '<div>query: "{{ $route.params.q }}"</div>' }
 
+debugger
 // 3. Create the router
 const router = new VueRouter({
   mode: 'history',
@@ -68,7 +69,7 @@ const vueInstance = new Vue({
   data: () => ({ n: 0 }),
   template: `
     <div id="app">
-      <h1>Basic</h1>
+      <h1>Basic123</h1>
       <ul>
         <li><router-link to="/">/</router-link></li>
         <li><router-link to="/foo">/foo</router-link></li>

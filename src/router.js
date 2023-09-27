@@ -41,6 +41,7 @@ export default class VueRouter {
     if (process.env.NODE_ENV !== 'production') {
       warn(this instanceof VueRouter, `Router must be called with the new operator.`)
     }
+    debugger
     this.app = null
     this.apps = []
     this.options = options
