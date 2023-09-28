@@ -45,9 +45,11 @@ export default class VueRouter {
     this.app = null
     this.apps = []
     this.options = options
+    // 全局路由守卫钩子函数
     this.beforeHooks = []
     this.resolveHooks = []
     this.afterHooks = []
+    // 匹配器
     this.matcher = createMatcher(options.routes || [], this)
 
     let mode = options.mode || 'hash'
@@ -78,6 +80,7 @@ export default class VueRouter {
     }
   }
 
+  // TODO match待看
   match (raw: RawLocation, current?: Route, redirectedFrom?: Location): Route {
     return this.matcher.match(raw, current, redirectedFrom)
   }
@@ -133,6 +136,8 @@ export default class VueRouter {
         history.setupListeners()
         handleInitialScroll(routeOrError)
       }
+
+      // 执行一次history.transitionTo
       history.transitionTo(
         history.getCurrentLocation(),
         setupListeners,
@@ -201,6 +206,7 @@ export default class VueRouter {
     this.go(1)
   }
 
+  // TODO
   getMatchedComponents (to?: RawLocation | Route): Array<any> {
     const route: any = to
       ? to.matched
@@ -220,6 +226,7 @@ export default class VueRouter {
     )
   }
 
+  // TODO
   resolve (
     to: RawLocation,
     current?: Route,

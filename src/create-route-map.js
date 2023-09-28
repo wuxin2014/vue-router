@@ -22,6 +22,7 @@ export function createRouteMap (
   // $flow-disable-line
   const nameMap: Dictionary<RouteRecord> = oldNameMap || Object.create(null)
 
+  // routes数组循环，做添加route记录
   routes.forEach(route => {
     addRouteRecord(pathList, pathMap, nameMap, route, parentRoute)
   })
@@ -91,7 +92,7 @@ function addRouteRecord (
 
   const record: RouteRecord = {
     path: normalizedPath,
-    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
+    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions), // TODO
     components: route.components || { default: route.component },
     alias: route.alias
       ? typeof route.alias === 'string'
@@ -104,7 +105,7 @@ function addRouteRecord (
     parent,
     matchAs,
     redirect: route.redirect,
-    beforeEnter: route.beforeEnter,
+    beforeEnter: route.beforeEnter, // 路由独享的守卫
     meta: route.meta || {},
     props:
       route.props == null
@@ -194,6 +195,7 @@ function compileRouteRegex (
   path: string,
   pathToRegexpOptions: PathToRegexpOptions
 ): RouteRegExp {
+  // 生成正则, path-to-regexp(把字符串转为正则表达式)
   const regex = Regexp(path, [], pathToRegexpOptions)
   if (process.env.NODE_ENV !== 'production') {
     const keys: any = Object.create(null)
@@ -216,5 +218,6 @@ function normalizePath (
   if (!strict) path = path.replace(/\/$/, '')
   if (path[0] === '/') return path
   if (parent == null) return path
+  // cleanPath这个方法待看
   return cleanPath(`${parent.path}/${path}`)
 }

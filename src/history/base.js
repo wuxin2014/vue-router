@@ -223,6 +223,7 @@ export class History {
       }
     }
 
+    // 重点执行地方
     runQueue(queue, iterator, () => {
       // wait until async components are resolved before
       // extracting in-component enter guards
