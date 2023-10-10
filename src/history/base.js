@@ -101,7 +101,9 @@ export class History {
       () => {
         this.updateRoute(route)
         onComplete && onComplete(route)
+        // 8.导航确认
         this.ensureURL()
+        // 9.全局后置守卫
         this.router.afterHooks.forEach(hook => {
           hook && hook(route, prev)
         })
@@ -174,18 +176,18 @@ export class History {
       this.current.matched,
       route.matched
     )
-
+    // 守卫钩子数组拼接 => vue-router导航解析流程
     const queue: Array<?NavigationGuard> = [].concat(
       // in-component leave guards
-      extractLeaveGuards(deactivated),
+      extractLeaveGuards(deactivated), // 1.组件内的守卫beforeRouteLeave离开
       // global before hooks
-      this.router.beforeHooks,
+      this.router.beforeHooks, // 2.全局前置守卫
       // in-component update hooks
-      extractUpdateHooks(updated),
+      extractUpdateHooks(updated), // 3.组件内的守卫beforeRouteUpdate更新
       // in-config enter guards
-      activated.map(m => m.beforeEnter),
+      activated.map(m => m.beforeEnter), // 4.路由独享的守卫
       // async components
-      resolveAsyncComponents(activated)
+      resolveAsyncComponents(activated) // 5.解析异步路由组件
     )
 
     const iterator = (hook: NavigationGuard, next) => {
@@ -225,15 +227,17 @@ export class History {
 
     // 重点执行地方
     runQueue(queue, iterator, () => {
+      // queue执行完后要执行的函数
       // wait until async components are resolved before
       // extracting in-component enter guards
       const enterGuards = extractEnterGuards(activated)
-      const queue = enterGuards.concat(this.router.resolveHooks)
+      const queue = enterGuards.concat(this.router.resolveHooks) // 6.组件内的守卫beforeRouteEnter 拼接  7.全局解析守卫
       runQueue(queue, iterator, () => {
         if (this.pending !== route) {
           return abort(createNavigationCancelledError(current, route))
         }
         this.pending = null
+        // 走onComplete
         onComplete(route)
         if (this.router.app) {
           this.router.app.$nextTick(() => {
@@ -297,16 +301,16 @@ function resolveQueue (
   deactivated: Array<RouteRecord>
 } {
   let i
-  const max = Math.max(current.length, next.length)
+  const max = Math.max(current.length, next.length) // 当前路由数组长度 跟 即将跳转的数组长度
   for (i = 0; i < max; i++) {
     if (current[i] !== next[i]) {
       break
     }
   }
   return {
-    updated: next.slice(0, i),
-    activated: next.slice(i),
-    deactivated: current.slice(i)
+    updated: next.slice(0, i), // 更新
+    activated: next.slice(i), // 激活
+    deactivated: current.slice(i) // 销毁
   }
 }
 

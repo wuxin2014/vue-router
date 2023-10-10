@@ -86,7 +86,7 @@ export class HTML5History extends History {
 }
 
 export function getLocation (base: string): string {
-  let path = window.location.pathname
+  let path = window.location.pathname // 例如 /a/app
   const pathLowerCase = path.toLowerCase()
   const baseLowerCase = base.toLowerCase()
   // base="/a" shouldn't turn path="/app" into "/a/pp"

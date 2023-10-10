@@ -69,6 +69,7 @@ export function parsePath (path: string): {
   }
 }
 
+// 正则中\s代表空白符
 export function cleanPath (path: string): string {
   return path.replace(/\/(?:\s*\/)+/g, '/')
 }

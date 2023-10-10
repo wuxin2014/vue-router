@@ -90,6 +90,7 @@ export default class VueRouter {
   }
 
   init (app: any /* Vue component instance */) {
+    debugger
     process.env.NODE_ENV !== 'production' &&
       assert(
         install.installed,

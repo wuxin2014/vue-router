@@ -4,6 +4,7 @@ import { _Vue } from '../install'
 import { warn } from './warn'
 import { isError } from '../util/errors'
 
+// 解析异步组件
 export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
   return (to, from, next) => {
     let hasAsync = false
@@ -46,6 +47,7 @@ export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
           }
         })
 
+        // TODO
         let res
         try {
           res = def(resolve, reject)
@@ -76,7 +78,7 @@ export function flatMapComponents (
 ): Array<?Function> {
   return flatten(matched.map(m => {
     return Object.keys(m.components).map(key => fn(
-      m.components[key],
+      m.components[key], // 可能是函数，可能是对象
       m.instances[key],
       m, key
     ))
