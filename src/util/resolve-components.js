@@ -20,7 +20,7 @@ export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
       if (typeof def === 'function' && def.cid === undefined) {
         hasAsync = true
         pending++
-
+        debugger
         const resolve = once(resolvedDef => {
           if (isESModule(resolvedDef)) {
             resolvedDef = resolvedDef.default

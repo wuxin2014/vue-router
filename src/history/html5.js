@@ -25,6 +25,7 @@ export class HTML5History extends History {
     const expectScroll = router.options.scrollBehavior
     const supportsScroll = supportsPushState && expectScroll
 
+    // 监听注意setUpScroll
     if (supportsScroll) {
       this.listeners.push(setupScroll())
     }

@@ -62,6 +62,7 @@ export function handleScroll (
       return
     }
 
+    // shouldScroll可能是Promise 也可能是对象
     if (typeof shouldScroll.then === 'function') {
       shouldScroll
         .then(shouldScroll => {
@@ -159,6 +160,7 @@ function scrollToPosition (shouldScroll, position) {
     position = normalizePosition(shouldScroll)
   }
 
+  // 使用window.scrollTo进行页面滚动
   if (position) {
     // $flow-disable-line
     if ('scrollBehavior' in document.documentElement.style) {
