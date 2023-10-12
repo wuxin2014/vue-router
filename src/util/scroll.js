@@ -90,6 +90,7 @@ export function saveScrollPosition () {
 }
 
 function handlePopState (e) {
+  debugger
   saveScrollPosition()
   if (e.state && e.state.key) {
     setStateKey(e.state.key)

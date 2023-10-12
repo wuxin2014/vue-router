@@ -139,7 +139,7 @@ export default class VueRouter {
         handleInitialScroll(routeOrError)
       }
 
-      // 执行一次history.transitionTo
+      // init 第一次执行 history.transitionTo
       history.transitionTo(
         history.getCurrentLocation(),
         setupListeners,
@@ -175,6 +175,7 @@ export default class VueRouter {
   }
 
   push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+    debugger
     // $flow-disable-line
     if (!onComplete && !onAbort && typeof Promise !== 'undefined') {
       return new Promise((resolve, reject) => {

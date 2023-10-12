@@ -31,6 +31,7 @@ export class HTML5History extends History {
     }
 
     const handleRoutingEvent = () => {
+      debugger
       const current = this.current
 
       // Avoiding first `popstate` event dispatched in some browsers but first
@@ -59,7 +60,9 @@ export class HTML5History extends History {
   push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
     const { current: fromRoute } = this
     this.transitionTo(location, route => {
+      // 真正history pushState跳转的地方
       pushState(cleanPath(this.base + route.fullPath))
+      // 处理页面滚动
       handleScroll(this.router, route, fromRoute, false)
       onComplete && onComplete(route)
     }, onAbort)

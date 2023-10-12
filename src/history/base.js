@@ -35,7 +35,7 @@ export class History {
   listeners: Array<Function>
   cleanupListeners: Function
 
-  // implemented by sub-classes
+  // implemented by sub-classes 由子类实现
   +go: (n: number) => void
   +push: (loc: RawLocation, onComplete?: Function, onAbort?: Function) => void
   +replace: (
@@ -60,6 +60,7 @@ export class History {
     this.listeners = []
   }
 
+  // this.cb赋值的地方
   listen (cb: Function) {
     this.cb = cb
   }
@@ -99,9 +100,9 @@ export class History {
     this.confirmTransition(
       route,
       () => {
+        // 8.导航确认
         this.updateRoute(route)
         onComplete && onComplete(route)
-        // 8.导航确认
         this.ensureURL()
         // 9.全局后置守卫
         this.router.afterHooks.forEach(hook => {
@@ -239,6 +240,7 @@ export class History {
         this.pending = null
         // 走onComplete
         onComplete(route)
+        // 10.走handleRouteEntered
         if (this.router.app) {
           this.router.app.$nextTick(() => {
             handleRouteEntered(route)
@@ -250,6 +252,7 @@ export class History {
 
   updateRoute (route: Route) {
     this.current = route
+    // this.cb是什么
     this.cb && this.cb(route)
   }
 
