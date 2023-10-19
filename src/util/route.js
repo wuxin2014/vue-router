@@ -67,7 +67,7 @@ function getFullPath (
   _stringifyQuery
 ): string {
   const stringify = _stringifyQuery || stringifyQuery
-  return (path || '/') + stringify(query) + hash
+  return (path || '/') + stringify(query) + hash // 假设 /person?name=1&sex=1#demo
 }
 
 export function isSameRoute (a: Route, b: ?Route, onlyPath: ?boolean): boolean {

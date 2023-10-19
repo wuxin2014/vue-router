@@ -22,6 +22,7 @@ export function setupScroll () {
   // preserve existing history state as it could be overriden by the user
   const stateCopy = extend({}, window.history.state)
   stateCopy.key = getStateKey()
+
   window.history.replaceState(stateCopy, '', absolutePath)
   window.addEventListener('popstate', handlePopState)
   return () => {

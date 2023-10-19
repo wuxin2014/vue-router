@@ -33,6 +33,7 @@ export class HashHistory extends History {
     }
 
     const handleRoutingEvent = () => {
+      debugger
       const current = this.current
       if (!ensureSlash()) {
         return
@@ -46,6 +47,7 @@ export class HashHistory extends History {
         }
       })
     }
+
     const eventType = supportsPushState ? 'popstate' : 'hashchange'
     window.addEventListener(
       eventType,
@@ -57,6 +59,7 @@ export class HashHistory extends History {
   }
 
   push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+    debugger
     const { current: fromRoute } = this
     this.transitionTo(
       location,

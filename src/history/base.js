@@ -182,11 +182,11 @@ export class History {
       // in-component leave guards
       extractLeaveGuards(deactivated), // 1.组件内的守卫beforeRouteLeave离开
       // global before hooks
-      this.router.beforeHooks, // 2.全局前置守卫
+      this.router.beforeHooks, // 2.全局前置守卫beforeEach
       // in-component update hooks
       extractUpdateHooks(updated), // 3.组件内的守卫beforeRouteUpdate更新
       // in-config enter guards
-      activated.map(m => m.beforeEnter), // 4.路由独享的守卫
+      activated.map(m => m.beforeEnter), // 4.路由独享的守卫beforeEnter
       // async components
       resolveAsyncComponents(activated) // 5.解析异步路由组件
     )
@@ -232,7 +232,7 @@ export class History {
       // wait until async components are resolved before
       // extracting in-component enter guards
       const enterGuards = extractEnterGuards(activated)
-      const queue = enterGuards.concat(this.router.resolveHooks) // 6.组件内的守卫beforeRouteEnter 拼接  7.全局解析守卫
+      const queue = enterGuards.concat(this.router.resolveHooks) // 6.组件内的守卫beforeRouteEnter 拼接  7.全局解析守卫beforeResolve
       runQueue(queue, iterator, () => {
         if (this.pending !== route) {
           return abort(createNavigationCancelledError(current, route))

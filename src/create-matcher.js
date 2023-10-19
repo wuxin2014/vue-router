@@ -87,7 +87,7 @@ export function createMatcher (
       for (let i = 0; i < pathList.length; i++) {
         const path = pathList[i]
         const record = pathMap[path]
-        // 注意matchRoute这个没太懂
+        // 注意matchRoute & for循环中使用了return
         if (matchRoute(record.regex, location.path, location.params)) {
           return _createRoute(record, location, redirectedFrom)
         }
@@ -213,6 +213,7 @@ function matchRoute (
     return true
   }
 
+  // 注意 m循环，regex.keys
   for (let i = 1, len = m.length; i < len; ++i) {
     const key = regex.keys[i - 1]
     if (key) {

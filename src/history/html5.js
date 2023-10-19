@@ -25,8 +25,8 @@ export class HTML5History extends History {
     const expectScroll = router.options.scrollBehavior
     const supportsScroll = supportsPushState && expectScroll
 
-    // 监听注意setUpScroll
     if (supportsScroll) {
+      // listeners-1.监听数组添加setUpScroll
       this.listeners.push(setupScroll())
     }
 
@@ -47,7 +47,9 @@ export class HTML5History extends History {
         }
       })
     }
+    // 注意popstate触发时机
     window.addEventListener('popstate', handleRoutingEvent)
+    // listeners-2.监听数组添加新的函数
     this.listeners.push(() => {
       window.removeEventListener('popstate', handleRoutingEvent)
     })
@@ -58,6 +60,7 @@ export class HTML5History extends History {
   }
 
   push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+    debugger
     const { current: fromRoute } = this
     this.transitionTo(location, route => {
       // 真正history pushState跳转的地方
