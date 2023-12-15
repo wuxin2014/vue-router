@@ -84,6 +84,7 @@ function addRouteRecord (
 
   const pathToRegexpOptions: PathToRegexpOptions =
     route.pathToRegexpOptions || {}
+  // 得到标准化的path
   const normalizedPath = normalizePath(path, parent, pathToRegexpOptions.strict)
 
   if (typeof route.caseSensitive === 'boolean') {
@@ -215,7 +216,7 @@ function normalizePath (
   parent?: RouteRecord,
   strict?: boolean
 ): string {
-  if (!strict) path = path.replace(/\/$/, '')
+  if (!strict) path = path.replace(/\/$/, '') // 将以/结尾的字符替换成空 如: '/basic/list/' => '/basic/list'
   if (path[0] === '/') return path
   if (parent == null) return path
   // cleanPath这个方法待看

@@ -54,7 +54,7 @@ export const START = createRoute(null, {
 })
 
 function formatMatch (record: ?RouteRecord): Array<RouteRecord> {
-  const res = []
+  const res = [] // 先追加本身，再追加parent
   while (record) {
     res.unshift(record)
     record = record.parent

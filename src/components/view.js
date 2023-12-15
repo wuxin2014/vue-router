@@ -12,6 +12,7 @@ export default {
     }
   },
   render (_, { props, children, parent, data }) {
+    debugger
     // used by devtools to display a router-view badge
     data.routerView = true
 
@@ -56,7 +57,7 @@ export default {
     }
 
     const matched = route.matched[depth]
-    const component = matched && matched.components[name]
+    const component = matched && matched.components[name] // 匹配到组件
 
     // render empty node if no matched route or no config component
     if (!matched || !component) {
@@ -67,7 +68,7 @@ export default {
     // cache component
     cache[name] = { component }
 
-    // attach instance registration hook
+    // attach instance registration hook registerRouteInstance函数定义的地方
     // this will be called in the instance's injected lifecycle hooks
     data.registerRouteInstance = (vm, val) => {
       // val could be undefined for unregistration
@@ -80,7 +81,7 @@ export default {
       }
     }
 
-    // also register instance in prepatch hook
+    // also register instance in prepatch hook == data.hook对象钩子函数的定义
     // in case the same component instance is reused across different routes
     ;(data.hook || (data.hook = {})).prepatch = (_, vnode) => {
       matched.instances[name] = vnode.componentInstance
@@ -112,7 +113,7 @@ export default {
       fillPropsinData(component, data, route, configProps)
     }
 
-    return h(component, data, children)
+    return h(component, data, children) // 注意这里h函数的调用， 参数tag传入是对象
   }
 }
 

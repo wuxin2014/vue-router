@@ -294,7 +294,7 @@ function createHref (base: string, fullPath: string, mode) {
 }
 
 // We cannot remove this as it would be a breaking change
-VueRouter.install = install
+VueRouter.install = install // 挂install函数
 VueRouter.version = '__VERSION__'
 VueRouter.isNavigationFailure = isNavigationFailure
 VueRouter.NavigationFailureType = NavigationFailureType

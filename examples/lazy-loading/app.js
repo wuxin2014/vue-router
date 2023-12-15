@@ -36,6 +36,7 @@ const Foo = () => import('./Foo.vue')
 const Bar = () => import(/* webpackChunkName: "bar" */ './Bar.vue')
 const Baz = () => import(/* webpackChunkName: "bar" */ './Baz.vue')
 
+debugger
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
@@ -70,14 +71,37 @@ new Vue({
   template: `
     <div id="app">
       <h1>Lazy Loading</h1>
-      <ul>
+      <router-view class="view"></router-view>
+    </div>
+  `
+}).$mount('#app')
+
+{/* <ul>
         <li><router-link to="/">/</router-link></li>
         <li><router-link to="/foo">/foo</router-link></li>
         <li><router-link to="/bar">/bar</router-link></li>
         <li><router-link to="/bar/baz">/bar/baz</router-link></li>
         <li><router-link to="/a/b/c">/a/b/c</router-link></li>
-      </ul>
-      <router-view class="view"></router-view>
-    </div>
-  `
-}).$mount('#app')
+      </ul> */}
+
+// (function anonymous() {
+//   with(this){
+//     return _c('div',{attrs:{"id":"app"}},[
+//       _c('h1',[_v("Lazy Loading")]),
+//       _v(" "),
+//       _c('ul',[
+//         _c('li',[_c('router-link',{attrs:{"to":"/"}},[_v("/")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/foo"}},[_v("/foo")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/bar"}},[_v("/bar")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/bar/baz"}},[_v("/bar/baz")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/a/b/c"}},[_v("/a/b/c")])],1)
+//       ]), 
+//       _v(" "),
+//       _c('router-view',{staticClass:"view"})
+//     ],1)
+//   }
+// })

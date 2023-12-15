@@ -2,7 +2,7 @@
 
 import { warn } from './warn'
 
-const encodeReserveRE = /[!'()*]/g
+const encodeReserveRE = /[!'()*]/g // 部分语义字符
 const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 const commaRE = /%2C/g
 
@@ -51,14 +51,15 @@ const castQueryParamValue = value => (value == null || typeof value === 'object'
 
 function parseQuery (query: string): Dictionary<string> {
   const res = {}
-
+  // 将开头是？或 # 或 &的字符去除
   query = query.trim().replace(/^(\?|#|&)/, '')
 
   if (!query) {
     return res
   }
-
+  // a=1&a=2&a=3&s=123
   query.split('&').forEach(param => {
+    // 将param字符中存在的+字符，替换成空格字符
     const parts = param.replace(/\+/g, ' ').split('=')
     const key = decode(parts.shift())
     const val = parts.length > 0 ? decode(parts.join('=')) : null

@@ -14,12 +14,12 @@ export function install (Vue) {
 
   const registerInstance = (vm, callVal) => {
     let i = vm.$options._parentVnode
-    if (isDef(i) && isDef(i = i.data) && isDef(i = i.registerRouteInstance)) {
+    if (isDef(i) && isDef(i = i.data) && isDef(i = i.registerRouteInstance)) { // 注意registerRouteInstance
       i(vm, callVal)
     }
   }
 
-  // 全局Vue的mixin
+  // 全局Vue的mixin 注意生命周期的注入
   Vue.mixin({
     beforeCreate () {
       if (isDef(this.$options.router)) {
