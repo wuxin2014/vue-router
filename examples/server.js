@@ -6,6 +6,7 @@ const WebpackConfig = require('./webpack.config')
 
 const app = express()
 
+// 启用服务
 app.use(
   webpackDevMiddleware(webpack(WebpackConfig), {
     publicPath: '/__build__/',

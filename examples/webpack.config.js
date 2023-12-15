@@ -48,8 +48,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.js',
-      'vue-router': path.join(__dirname, '..', 'src'),
+      vue: 'vue/dist/vue.esm.js', // vue别名-指定引用来源
+      'vue-router': path.join(__dirname, '..', 'src'), // 指定vue-router的引用来源
       'vue-router/composables': path.join(__dirname, '..', 'src/composables')
     }
   },
