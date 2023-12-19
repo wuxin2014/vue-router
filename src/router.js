@@ -80,7 +80,6 @@ export default class VueRouter {
     }
   }
 
-  // TODO match待看
   match (raw: RawLocation, current?: Route, redirectedFrom?: Location): Route {
     return this.matcher.match(raw, current, redirectedFrom)
   }

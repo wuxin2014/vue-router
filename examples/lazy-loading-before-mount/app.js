@@ -13,6 +13,7 @@ const Foo = () =>
       , 10)
   })
 
+debugger
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
@@ -23,6 +24,7 @@ const router = new VueRouter({
   ]
 })
 
+// 这个有什么作用: 重新跳转路由
 router.onReady(() => {
   router.push('/async')
 })

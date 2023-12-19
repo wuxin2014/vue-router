@@ -41,7 +41,7 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: Home },
+    { path: '/', component: Foo },
     // Just use them normally in the route config
     { path: '/foo', component: Foo },
     // multiple parameters, `/` should not be encoded. The name is also important
@@ -62,7 +62,15 @@ const router = new VueRouter({
       children: [
         { path: 'baz', component: Baz }
       ]
-    }
+    },
+    // {
+    //   path: '/other',
+    //   components: {
+    //     default: Baz,
+    //     a: Bar,
+    //     b: Foo
+    //   }
+    // }
   ]
 })
 
@@ -105,3 +113,8 @@ new Vue({
 //     ],1)
 //   }
 // })
+
+// var Foo = function Foo() {
+//   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./Foo.vue */ "./lazy-loading/Foo.vue"));
+// };
+

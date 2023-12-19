@@ -6,6 +6,7 @@ import { isError } from '../util/errors'
 
 // 解析异步组件
 export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
+  // 返回了钩子函数
   return (to, from, next) => {
     let hasAsync = false
     let pending = 0
@@ -20,8 +21,10 @@ export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
       if (typeof def === 'function' && def.cid === undefined) {
         hasAsync = true
         pending++
+
         debugger
         const resolve = once(resolvedDef => {
+          debugger
           if (isESModule(resolvedDef)) {
             resolvedDef = resolvedDef.default
           }
@@ -77,6 +80,7 @@ export function flatMapComponents (
   fn: Function
 ): Array<?Function> {
   return flatten(matched.map(m => {
+    // m => record对象， record.components
     return Object.keys(m.components).map(key => fn(
       m.components[key], // 可能是函数，可能是对象
       m.instances[key],

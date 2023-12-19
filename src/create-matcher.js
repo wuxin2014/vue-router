@@ -84,9 +84,10 @@ export function createMatcher (
     } else if (location.path) {
       // location.path存在
       location.params = {}
+      // 循环收集到的pathList
       for (let i = 0; i < pathList.length; i++) {
         const path = pathList[i]
-        const record = pathMap[path]
+        const record = pathMap[path] // 根据path获取record对象
         // 注意matchRoute & for循环中使用了return
         if (matchRoute(record.regex, location.path, location.params)) {
           return _createRoute(record, location, redirectedFrom)
@@ -213,7 +214,7 @@ function matchRoute (
     return true
   }
 
-  // 注意 m循环，regex.keys
+  // 收集location的params 注意 m循环，regex.keys
   for (let i = 1, len = m.length; i < len; ++i) {
     const key = regex.keys[i - 1]
     if (key) {

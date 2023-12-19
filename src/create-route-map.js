@@ -93,13 +93,13 @@ function addRouteRecord (
 
   const record: RouteRecord = {
     path: normalizedPath,
-    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions), // TODO
-    components: route.components || { default: route.component },
+    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions), // 将path转化为regex
+    components: route.components || { default: route.component }, // 注意route.components 跟 route.component配置区别
     alias: route.alias
       ? typeof route.alias === 'string'
         ? [route.alias]
         : route.alias
-      : [],
+      : [], // 别名作用是什么
     instances: {},
     enteredCbs: {},
     name,

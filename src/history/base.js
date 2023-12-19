@@ -109,7 +109,7 @@ export class History {
           hook && hook(route, prev)
         })
 
-        // fire ready cbs once
+        // fire ready cbs once 若readyCbs中追加函数，必然会执行
         if (!this.ready) {
           this.ready = true
           this.readyCbs.forEach(cb => {
@@ -180,13 +180,13 @@ export class History {
     // 守卫钩子数组拼接 => vue-router导航解析流程
     const queue: Array<?NavigationGuard> = [].concat(
       // in-component leave guards
-      extractLeaveGuards(deactivated), // 1.组件内的守卫beforeRouteLeave离开
+      extractLeaveGuards(deactivated), // 1.在失活的组件里调用离开守卫
       // global before hooks
       this.router.beforeHooks, // 2.全局前置守卫beforeEach
       // in-component update hooks
-      extractUpdateHooks(updated), // 3.组件内的守卫beforeRouteUpdate更新
+      extractUpdateHooks(updated), // 3.在重用的组件里调用 beforeRouteUpdate 守卫
       // in-config enter guards
-      activated.map(m => m.beforeEnter), // 4.路由独享的守卫beforeEnter
+      activated.map(m => m.beforeEnter), // 4.在激活的路由配置里调用 beforeEnter
       // async components
       resolveAsyncComponents(activated) // 5.解析异步路由组件
     )
@@ -233,7 +233,7 @@ export class History {
       // wait until async components are resolved before
       // extracting in-component enter guards
       const enterGuards = extractEnterGuards(activated)
-      const queue = enterGuards.concat(this.router.resolveHooks) // 6.组件内的守卫beforeRouteEnter 拼接  7.全局解析守卫beforeResolve
+      const queue = enterGuards.concat(this.router.resolveHooks) // 6.在被激活的组件里调用 beforeRouteEnter 拼接  7.全局解析守卫beforeResolve
       runQueue(queue, iterator, () => {
         if (this.pending !== route) {
           return abort(createNavigationCancelledError(current, route))
@@ -324,6 +324,7 @@ function extractGuards (
   bind: Function,
   reverse?: boolean
 ): Array<?Function> {
+  // 
   const guards = flatMapComponents(records, (def, instance, match, key) => {
     const guard = extractGuard(def, name)
     if (guard) {
@@ -341,7 +342,7 @@ function extractGuard (
 ): NavigationGuard | Array<NavigationGuard> {
   if (typeof def !== 'function') {
     // extend now so that global mixins are applied.
-    def = _Vue.extend(def)
+    def = _Vue.extend(def) // 构建子类构造函数
   }
   return def.options[key]
 }
