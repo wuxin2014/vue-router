@@ -88,7 +88,7 @@ export class History {
     let route
     // catch redirect option https://github.com/vuejs/vue-router/issues/3201
     try {
-      route = this.router.match(location, this.current)
+      route = this.router.match(location, this.current) // 通过location匹配到route对象， 以及注意this.current
     } catch (e) {
       this.errorCbs.forEach(cb => {
         cb(e)
@@ -101,9 +101,9 @@ export class History {
       route,
       () => {
         // 8.导航确认
-        this.updateRoute(route)
-        onComplete && onComplete(route)
-        this.ensureURL()
+        this.updateRoute(route) // 更新route
+        onComplete && onComplete(route) // 执行启动监听的回调函数
+        this.ensureURL() // 确定url的变更
         // 9.全局后置守卫
         this.router.afterHooks.forEach(hook => {
           hook && hook(route, prev)
@@ -196,6 +196,7 @@ export class History {
         return abort(createNavigationCancelledError(current, route))
       }
       try {
+        // 钩子函数 hook(to, from, next)
         hook(route, current, (to: any) => {
           if (to === false) {
             // next(false) -> abort navigation, ensure current URL
@@ -259,7 +260,7 @@ export class History {
   setupListeners () {
     // Default implementation is empty
   }
-
+  // 注意teardown函数，在app销毁时会调用
   teardown () {
     // clean up event listeners
     // https://github.com/vuejs/vue-router/issues/2341

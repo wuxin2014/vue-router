@@ -21,6 +21,7 @@ export function install (Vue) {
 
   // 全局Vue的mixin 注意生命周期的注入
   Vue.mixin({
+    // 等Vue初始化，执行beforeCreate钩子函数时会到这里
     beforeCreate () {
       if (isDef(this.$options.router)) {
         this._routerRoot = this

@@ -10,7 +10,9 @@ document.body.appendChild(listenerCountDiv)
 
 const originalAddEventListener = window.addEventListener
 const originalRemoveEventListener = window.removeEventListener
+// 重新定义window.addEventListener函数
 window.addEventListener = function (name, handler) {
+  debugger
   if (name === 'popstate') {
     listenerCountDiv.textContent =
       ++numPopstateListeners + ' popstate listeners'
@@ -28,6 +30,7 @@ window.removeEventListener = function (name, handler) {
 // 1. Use plugin.
 // This installs <router-view> and <router-link>,
 // and injects $router and $route to all router-enabled child components
+debugger
 Vue.use(VueRouter)
 
 // 2. Define route components
@@ -37,11 +40,10 @@ const Bar = { template: '<div>bar</div>' }
 const Unicode = { template: '<div>unicode</div>' }
 const Query = { template: '<div>query: "{{ $route.params.q }}"</div>' }
 
-debugger
 // 3. Create the router
 const router = new VueRouter({
   mode: 'history',
-  base: __dirname,
+  base: __dirname, // __dirname指什么
   routes: [
     { path: '/', component: Home },
     { path: '/foo', component: Foo },

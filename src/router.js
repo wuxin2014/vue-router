@@ -100,7 +100,7 @@ export default class VueRouter {
 
     this.apps.push(app)
 
-    // set up app destroyed handler
+    // set up app destroyed handler app销毁时需执行的函数
     // https://github.com/vuejs/vue-router/issues/2639
     app.$once('hook:destroyed', () => {
       // clean out app from this.apps array once destroyed
@@ -110,7 +110,7 @@ export default class VueRouter {
       // we do not release the router so it can be reused
       if (this.app === app) this.app = this.apps[0] || null
 
-      if (!this.app) this.history.teardown()
+      if (!this.app) this.history.teardown() // 销毁时调用
     })
 
     // main app previously initialized
@@ -134,6 +134,7 @@ export default class VueRouter {
           handleScroll(this, routeOrError, from, false)
         }
       }
+      // 切换路由监听
       const setupListeners = routeOrError => {
         history.setupListeners()
         handleInitialScroll(routeOrError)
@@ -148,6 +149,7 @@ export default class VueRouter {
     }
 
     history.listen(route => {
+      // 更改app的_route属性
       this.apps.forEach(app => {
         app._route = route
       })

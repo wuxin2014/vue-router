@@ -26,7 +26,7 @@ export class HTML5History extends History {
     const supportsScroll = supportsPushState && expectScroll
 
     if (supportsScroll) {
-      // listeners-1.监听数组添加setUpScroll
+      // listeners-add 1.监听数组添加setUpScroll
       this.listeners.push(setupScroll())
     }
 
@@ -47,9 +47,9 @@ export class HTML5History extends History {
         }
       })
     }
-    // 注意popstate触发时机
+    // 注意popstate触发时机: 一个popstate事件，在前进和后退、history.go()或history.back()等方式进入页面时触发
     window.addEventListener('popstate', handleRoutingEvent)
-    // listeners-2.监听数组添加新的函数
+    // listeners-add 2.监听数组添加新的函数
     this.listeners.push(() => {
       window.removeEventListener('popstate', handleRoutingEvent)
     })
@@ -82,7 +82,7 @@ export class HTML5History extends History {
 
   ensureURL (push?: boolean) {
     if (getLocation(this.base) !== this.current.fullPath) {
-      const current = cleanPath(this.base + this.current.fullPath)
+      const current = cleanPath(this.base + this.current.fullPath) // 得到要跳转的url
       push ? pushState(current) : replaceState(current)
     }
   }
