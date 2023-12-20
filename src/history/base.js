@@ -380,13 +380,14 @@ function bindEnterGuard (
   match: RouteRecord,
   key: string
 ): NavigationGuard {
+  // 包装一层的作用
   return function routeEnterGuard (to, from, next) {
     return guard(to, from, cb => {
       if (typeof cb === 'function') {
         if (!match.enteredCbs[key]) {
           match.enteredCbs[key] = []
         }
-        match.enteredCbs[key].push(cb)
+        match.enteredCbs[key].push(cb) // record.enteredCbs对象更新的地方
       }
       next(cb)
     })

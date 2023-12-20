@@ -100,8 +100,8 @@ function addRouteRecord (
         ? [route.alias]
         : route.alias
       : [], // 别名作用是什么
-    instances: {},
-    enteredCbs: {},
+    instances: {}, // 实例
+    enteredCbs: {}, // enteredCbs
     name,
     parent,
     matchAs,

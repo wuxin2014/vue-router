@@ -140,12 +140,12 @@ export function handleRouteEntered (route: Route) {
   for (let i = 0; i < route.matched.length; i++) {
     const record = route.matched[i]
     for (const name in record.instances) {
-      const instance = record.instances[name]
-      const cbs = record.enteredCbs[name]
+      const instance = record.instances[name] // record.instances什么时候更新的，去找
+      const cbs = record.enteredCbs[name] // record.enteredCbs什么时候更新的
       if (!instance || !cbs) continue
       delete record.enteredCbs[name]
       for (let i = 0; i < cbs.length; i++) {
-        if (!instance._isBeingDestroyed) cbs[i](instance)
+        if (!instance._isBeingDestroyed) cbs[i](instance) // 将实例传回beforeRouteEnter 中的next((vm) => {})
       }
     }
   }
