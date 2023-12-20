@@ -168,6 +168,7 @@ function addRouteRecord (
         path: alias,
         children: route.children
       }
+      // 别名处理时， matchAs参数为record.path
       addRouteRecord(
         pathList,
         pathMap,
@@ -211,6 +212,7 @@ function compileRouteRegex (
   return regex
 }
 
+// 将以/结尾的字符替换成空字符
 function normalizePath (
   path: string,
   parent?: RouteRecord,

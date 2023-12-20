@@ -38,6 +38,7 @@ const router = new VueRouter({
   ]
 })
 
+debugger
 new Vue({
   router,
   template: `

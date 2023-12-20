@@ -24,7 +24,7 @@ const router = new VueRouter({
     { path: '/optional-group/(foo/)?bar' }
   ]
 })
-
+debugger
 new Vue({
   router,
   template: `

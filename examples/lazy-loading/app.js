@@ -118,3 +118,7 @@ new Vue({
 //   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./Foo.vue */ "./lazy-loading/Foo.vue"));
 // };
 
+// (function anonymous() {
+//   with(this){return _c('div',{attrs:{"id":"app"}},[_c('h1',[_v("Lazy Loading")]),_v(" "),_c('router-view',{staticClass:"view"})],1)}
+// })
+

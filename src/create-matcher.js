@@ -185,10 +185,10 @@ export function createMatcher (
     redirectedFrom?: Location
   ): Route {
     if (record && record.redirect) {
-      return redirect(record, redirectedFrom || location)
+      return redirect(record, redirectedFrom || location) // 重定向处理
     }
     if (record && record.matchAs) {
-      return alias(record, location, record.matchAs)
+      return alias(record, location, record.matchAs) // 别名逻辑处理
     }
     return createRoute(record, location, redirectedFrom, router)
   }
