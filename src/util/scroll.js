@@ -40,7 +40,7 @@ export function handleScroll (
     return
   }
 
-  const behavior = router.options.scrollBehavior
+  const behavior = router.options.scrollBehavior // 拿到router配置options对象的scrollBehavior函数
   if (!behavior) {
     return
   }
@@ -51,7 +51,9 @@ export function handleScroll (
 
   // wait until re-render finishes before scrolling
   router.app.$nextTick(() => {
+    debugger
     const position = getScrollPosition()
+    debugger
     const shouldScroll = behavior.call(
       router,
       to,
@@ -91,7 +93,6 @@ export function saveScrollPosition () {
 }
 
 function handlePopState (e) {
-  debugger
   saveScrollPosition()
   if (e.state && e.state.key) {
     setStateKey(e.state.key)
@@ -142,6 +143,7 @@ const hashStartsWithNumberRE = /^#\d/
 function scrollToPosition (shouldScroll, position) {
   const isObject = typeof shouldScroll === 'object'
   if (isObject && typeof shouldScroll.selector === 'string') {
+    // 如果shouldScroll对象存在selector属性，根据其查找元素
     // getElementById would still fail if the selector contains a more complicated query like #main[data-attr]
     // but at the same time, it doesn't make much sense to select an element with an id and an extra selector
     const el = hashStartsWithNumberRE.test(shouldScroll.selector) // $flow-disable-line
@@ -149,6 +151,7 @@ function scrollToPosition (shouldScroll, position) {
       : document.querySelector(shouldScroll.selector)
 
     if (el) {
+      // 处理偏移量
       let offset =
         shouldScroll.offset && typeof shouldScroll.offset === 'object'
           ? shouldScroll.offset

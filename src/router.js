@@ -130,11 +130,12 @@ export default class VueRouter {
         const supportsScroll = supportsPushState && expectScroll
 
         if (supportsScroll && 'fullPath' in routeOrError) {
-          handleScroll(this, routeOrError, from, false)
+          handleScroll(this, routeOrError, from, false) // 启动监听，handleScroll函数 isPop参数为false
         }
       }
       // 切换路由监听
       const setupListeners = routeOrError => {
+        debugger
         history.setupListeners()
         handleInitialScroll(routeOrError)
       }

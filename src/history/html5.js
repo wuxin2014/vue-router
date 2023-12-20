@@ -22,12 +22,12 @@ export class HTML5History extends History {
     }
 
     const router = this.router
-    const expectScroll = router.options.scrollBehavior
+    const expectScroll = router.options.scrollBehavior // router的配置option对象是否存在scrollBehavior
     const supportsScroll = supportsPushState && expectScroll
 
     if (supportsScroll) {
-      // listeners-add 1.监听数组添加setUpScroll
-      this.listeners.push(setupScroll())
+      // listeners-add 1.监听数组添加setUpScroll()执行后返回的取消函数(handlePopState)
+      this.listeners.push(setupScroll()) // setupScroll函数执行，会添加一个popstate监听
     }
 
     const handleRoutingEvent = () => {
@@ -43,13 +43,13 @@ export class HTML5History extends History {
 
       this.transitionTo(location, route => {
         if (supportsScroll) {
-          handleScroll(router, route, current, true)
+          handleScroll(router, route, current, true) // 回退前进时，handleScroll函数 isPop参数为true
         }
       })
     }
     // 注意popstate触发时机: 一个popstate事件，在前进和后退、history.go()或history.back()等方式进入页面时触发
     window.addEventListener('popstate', handleRoutingEvent)
-    // listeners-add 2.监听数组添加新的函数
+    // listeners-add 2.监听数组添加新的取消popstate监听函数(handleRoutingEvent)
     this.listeners.push(() => {
       window.removeEventListener('popstate', handleRoutingEvent)
     })
@@ -66,7 +66,7 @@ export class HTML5History extends History {
       // 真正history pushState跳转的地方
       pushState(cleanPath(this.base + route.fullPath))
       // 处理页面滚动
-      handleScroll(this.router, route, fromRoute, false)
+      handleScroll(this.router, route, fromRoute, false) // push时，handleScroll函数 isPop参数为false
       onComplete && onComplete(route)
     }, onAbort)
   }
@@ -75,7 +75,7 @@ export class HTML5History extends History {
     const { current: fromRoute } = this
     this.transitionTo(location, route => {
       replaceState(cleanPath(this.base + route.fullPath))
-      handleScroll(this.router, route, fromRoute, false)
+      handleScroll(this.router, route, fromRoute, false) // replace时，handleScroll函数 isPop参数为false
       onComplete && onComplete(route)
     }, onAbort)
   }
