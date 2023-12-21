@@ -71,13 +71,14 @@ export default {
     // attach instance registration hook registerRouteInstance函数定义的地方
     // this will be called in the instance's injected lifecycle hooks
     data.registerRouteInstance = (vm, val) => {
+      debugger
       // val could be undefined for unregistration
       const current = matched.instances[name]
       if (
         (val && current !== vm) ||
         (!val && current === vm)
       ) {
-        matched.instances[name] = val
+        matched.instances[name] = val // record.instances 更新的地方
       }
     }
 
@@ -94,7 +95,7 @@ export default {
         vnode.componentInstance &&
         vnode.componentInstance !== matched.instances[name]
       ) {
-        matched.instances[name] = vnode.componentInstance
+        matched.instances[name] = vnode.componentInstance // record.instances 更新的地方
       }
 
       // if the route transition has already been confirmed then we weren't
@@ -113,7 +114,7 @@ export default {
       fillPropsinData(component, data, route, configProps)
     }
 
-    return h(component, data, children) // 注意这里h函数的调用， 参数tag传入是对象
+    return h(component, data, children) // 注意这里h函数的调用， 参数tag传入是对象, 注意data的传入
   }
 }
 

@@ -147,6 +147,7 @@ const router = new VueRouter({
   ]
 })
 
+debugger
 new Vue({
   router,
   template: `
@@ -155,13 +156,6 @@ new Vue({
         <li><router-link to="/index/child1">/index/child1</router-link></li>
         <li><router-link to="/index/child2">/index/child2</router-link></li>
         <li><router-link to="/home">/home</router-link></li>
-        <li><router-link to="/with-guard1">/with-guard1</router-link></li>
-        <li><router-link to="/with-guard2">/with-guard2</router-link></li>
-        <li><router-link to="/one/two/child1">/one/two/child1</router-link></li>
-        <li><router-link to="/one/two/child2">/one/two/child2</router-link></li>
-        <li><router-link to="/config-required-props">/config-required-props</router-link></li>
-        <li><router-link to="/config-required-props/child">/config-required-props/child</router-link></li>
-        <li><router-link to="/catch-warn">/catch-warn</router-link></li>
       </ul>
       <keep-alive>
         <router-view class="view"></router-view>
@@ -169,3 +163,42 @@ new Vue({
     </div>
   `
 }).$mount('#app')
+
+// (function anonymous() {
+//   with(this) {
+//     return _c('div',{attrs:{"id":"app"}},[
+//       _c('ul',[
+//         _c('li',[_c('router-link',{attrs:{"to":"/index/child1"}},[_v("/index/child1")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/index/child2"}},[_v("/index/child2")])],1),
+//         _v(" "),
+//         _c('li',[_c('router-link',{attrs:{"to":"/home"}},[_v("/home")])],1)
+//       ]),
+//       _v(" "),
+//       _c('keep-alive',[_c('router-view',{staticClass:"view"})],1)
+//     ],1)
+//   }
+// })
+
+// new Vue({
+//   router,
+//   template: `
+//     <div id="app">
+//       <ul>
+//         <li><router-link to="/index/child1">/index/child1</router-link></li>
+//         <li><router-link to="/index/child2">/index/child2</router-link></li>
+//         <li><router-link to="/home">/home</router-link></li>
+//         <li><router-link to="/with-guard1">/with-guard1</router-link></li>
+//         <li><router-link to="/with-guard2">/with-guard2</router-link></li>
+//         <li><router-link to="/one/two/child1">/one/two/child1</router-link></li>
+//         <li><router-link to="/one/two/child2">/one/two/child2</router-link></li>
+//         <li><router-link to="/config-required-props">/config-required-props</router-link></li>
+//         <li><router-link to="/config-required-props/child">/config-required-props/child</router-link></li>
+//         <li><router-link to="/catch-warn">/catch-warn</router-link></li>
+//       </ul>
+//       <keep-alive>
+//         <router-view class="view"></router-view>
+//       </keep-alive>
+//     </div>
+//   `
+// }).$mount('#app')

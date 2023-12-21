@@ -46,7 +46,7 @@ export function install (Vue) {
 
   // 在Vue.prototype上定义$route, 方便使用Vue实例的$route属性直接访问
   Object.defineProperty(Vue.prototype, '$route', {
-    get () { return this._routerRoot._route }
+    get () { return this._routerRoot._route } // 读取_route值，必定响应式依赖收集
   })
 
   // 定义全局组件
